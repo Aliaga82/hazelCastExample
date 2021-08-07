@@ -14,17 +14,11 @@ import org.springframework.stereotype.Service;
 public class BookService {
     private final BookRepository bookRepository;
 
-    @Cacheable("books")
+    @Cacheable(value = "books", key = "#isbn")   /// Load books
     public Book getBookNamebyIsbn( String isbn) {
-        return findBookInslowSource(isbn);
-    }
-    public Book findBookInslowSource(String isbn){
-        try {
-            log.trace("from data atabase");
-           Thread.sleep(3000);
-        } catch (InterruptedException e){
-          e.printStackTrace();
-        }
         return bookRepository.findByIsbn(isbn);
+    }
+    public Book findById (Long id){
+        return bookRepository.findById(id).orElse(null);
     }
 }

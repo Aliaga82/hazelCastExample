@@ -15,13 +15,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/hazeldb?useSSL=false&createDatabaseIfNotExist=true
     username: root
-    password: 3141593
-  mail:
-    default-encoding: UTF-8
-    host: smtp.mail.ru
-    username: aliaga-82@mail.ru
-    password: qarderob123
-    port: 465
+    password:
     properties:
       mail:
         smtp:
@@ -40,4 +34,7 @@ spring:
             join:
               multicast:
                 enabled: true
+                logging:
+                  level: trace
+
 
