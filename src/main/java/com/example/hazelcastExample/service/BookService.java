@@ -30,7 +30,7 @@ public class BookService {
 
     }
 
-    @Cacheable(value = "books") /// Load books
+    @Cacheable(value = "books")
     public List<Book> findAll() {
         return (List<Book>) bookRepository.findAll();
     }
@@ -40,7 +40,8 @@ public class BookService {
         bookRepository.deleteById(id);
     }
 
-    @CachePut(value = "books", key = "#book.id")
+
+    @CacheEvict(value = "books", allEntries=true)
     public Book save(Book book) {
         return bookRepository.save(book);
     }
