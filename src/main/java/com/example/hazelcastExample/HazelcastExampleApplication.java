@@ -23,7 +23,7 @@ public class HazelcastExampleApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		while (true){
 			log.trace("Yuklenme databeysden");
-			bookService.getBookNamebyIsbn("aa");
+			//bookService.getBookNamebyIsbn("aa");
 			Thread.sleep(100);
 		}
 	}

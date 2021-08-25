@@ -4,8 +4,12 @@ import com.example.hazelcastExample.domain.Book;
 import com.example.hazelcastExample.repository.BookRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -15,10 +19,30 @@ public class BookService {
     private final BookRepository bookRepository;
 
     @Cacheable(value = "books", key = "#isbn")   /// Load books
-    public Book getBookNamebyIsbn( String isbn) {
+    public Book getBookNamebyIsbn(String isbn) {
         return bookRepository.findByIsbn(isbn);
     }
-    public Book findById (Long id){
-        return bookRepository.findById(id).orElse(null);
+
+    @Cacheable(value = "books", key = "#id")
+    public Book findById(Long id) {
+        Book book = bookRepository.findById(id).orElse(null);
+        return bookRepository.save(book);
+
     }
+
+    @Cacheable(value = "books") /// Load books
+    public List<Book> findAll() {
+        return (List<Book>) bookRepository.findAll();
+    }
+
+    @CacheEvict(value = "books", key = "#id")
+    public void delete(Long id) {
+        bookRepository.deleteById(id);
+    }
+
+    @CachePut(value = "books", key = "#book.id")
+    public Book save(Book book) {
+        return bookRepository.save(book);
+    }
+
 }
