@@ -1,4 +1,3 @@
-
 server:
   port: 8080
   servlet:
@@ -15,7 +14,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/hazeldb?useSSL=false&createDatabaseIfNotExist=true
     username: root
-    password:
+    password: 3141593
     properties:
       mail:
         smtp:
@@ -24,17 +23,5 @@ spring:
             enable: true
     protocol: smtp
     test-connection: false
-    servlet:
-      multipart:
-        enabled: true
-        max-file-size: 100MB
-        max-request-size: 100MB
-        hazelcast:
-          network:
-            join:
-              multicast:
-                enabled: true
-                logging:
-                  level: trace
 
 
